@@ -1,0 +1,19 @@
+diff -ur org/src/bootstrap.js patched/src/bootstrap.js
+--- org/src/bootstrap.js	2016-01-24 18:24:05.000000000 +0000
++++ patched/src/bootstrap.js	2018-06-12 05:26:29.318154145 +0000
+@@ -51,9 +51,12 @@
+ 
+             if (typeof f === 'function') {
+                 var connector = function (message, lineNumber, source, stack) {
+-                    var revisedStack = JSON.parse(stack).map(function (item) {
+-                        return { file: item.url, line: item.lineNumber, function: item.functionName };
+-                    });
++                    var revisedStack = [];
++                    if (stack) {
++                        var revisedStack = JSON.parse(stack).map(function (item) {
++                            return { file: item.url, line: item.lineNumber, function: item.functionName };
++                        });
++                    }
+                     if (revisedStack.length == 0)
+                         revisedStack = [{ file: source, line: lineNumber }];
+ 
